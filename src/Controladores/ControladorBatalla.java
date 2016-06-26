@@ -4,15 +4,11 @@ import Vistas.*;
 import Modelo.*;
 import static Vistas.VistaBatalla.panelTablero;
 import java.applet.AudioClip;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 
 
 public class ControladorBatalla implements ActionListener {
@@ -29,7 +25,7 @@ public class ControladorBatalla implements ActionListener {
     DespliegueDados despliegue;
     Criatura[] criaturaInvocada = new Criatura[4];
     public Combate combate = new Combate();
-    Accion accion = new Accion(null, null);
+    Accion accion = new Accion(this);
     public Tablero tablero = new Tablero(this, this.accion);
     Jugador jugadores[] = new Jugador[2];
     public static Criatura criaturasJ1[] = new Criatura[15];
@@ -52,18 +48,21 @@ public class ControladorBatalla implements ActionListener {
     public void setPuzles(PuzleDeDados[] puzles) {
         this.puzles = puzles;
     }
+    
+    public void setDadosSeleccionados(List<String> dados){
+        this.dadosSeleccionados = dados;
+    }
     Dado[] dadosJ1 = new Dado[15];
     Dado[] dadosJ2 = new Dado[15];
    
    
     public ControladorBatalla(VistaBatalla vistaBatalla){
         this.vistaBatalla = vistaBatalla;  
-        AudioClip sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/Corona.wav"));
-        
-        
+        AudioClip sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/Corona.wav")); 
     } 
     
     public void iniciar_VistaBatalla(){
+        this.participantes = 2;
         ///////////////////////////////Jugador 1////////////////////////////////
         this.jugadores[0] = new Jugador("Batman");
         this.combate.setJugador1(this.jugadores[0].getNombreJugador());
@@ -297,16 +296,15 @@ public class ControladorBatalla implements ActionListener {
         //
         this.vistaBatalla.movimientoJ1.setText("0");
         this.vistaBatalla.movimientoJ2.setText("0");
-        this.vistaBatalla.cantidadMovJ3.setValue(0);
-        this.vistaBatalla.cantidadMovJ4.setValue(0);
+        this.vistaBatalla.movimientoJ3.setText("0");
+        this.vistaBatalla.movimientoJ4.setText("0");
         this.vistaBatalla.ataqueJ1.setText("0");
         this.vistaBatalla.ataqueJ2.setText("0");
-        this.vistaBatalla.cantidadAtkJ3.setValue(0);
-        this.vistaBatalla.cantidadAtkJ4.setValue(0);
+        this.vistaBatalla.ataqueJ3.setText("0");
+        this.vistaBatalla.ataqueJ4.setText("0");
         int PVJefe1 = this.jefes[0].getPuntosDeVida();
         this.vistaBatalla.PVJefeJ1.setText(String.valueOf(PVJefe1));
         int PVJefe2 = this.jefes[1].getPuntosDeVida();
-        this.vistaBatalla.cantidadPvJ3.setValue(0);
         this.vistaBatalla.PVJefeJ2.setText(String.valueOf(PVJefe2));
         this.vistaBatalla.magiaJ1.setText("0");
         this.vistaBatalla.magiaJ2.setText("0");
@@ -337,11 +335,6 @@ public class ControladorBatalla implements ActionListener {
         this.vistaBatalla.seleccionarDado.setEnabled(false);
         this.vistaBatalla.dadosPuzle.setEnabled(false);
   
-        this.vistaBatalla.estadisticasCriaturasJ1.addActionListener(this);
-        this.vistaBatalla.estadisticaCriaturaJ2.addActionListener(this);
-        this.vistaBatalla.estadisticasCriaturasJ3.addActionListener(this);
-        this.vistaBatalla.estadisticasCriaturaJ4.addActionListener(this); 
-        
         this.vistaBatalla.turno.addActionListener(this);
         this.vistaBatalla.lanzarDados.addActionListener(this);
         this.vistaBatalla.magia.addActionListener(this);
@@ -421,18 +414,7 @@ public class ControladorBatalla implements ActionListener {
         }                                                          
         //Condicion para seleccionar dado y guardarlo en una variable                                                             
         if (boton == this.vistaBatalla.seleccionarDado){ 
-            
-                String dado = (String)this.vistaBatalla.dadosPuzle.getSelectedItem();
-                this.dadosSeleccionados.add(dado);
-                System.out.println(dadosSeleccionados);
-                this.vistaBatalla.dadosPuzle.removeItem(dado); 
-                this.vistaBatalla.lanzar.setEnabled(true);
-            
-            if(dadosSeleccionados.size() >= 4){
-                this.vistaBatalla.seleccionarDado.setEnabled(false);
-                this.vistaBatalla.dadosPuzle.setEnabled(false);
-            }
-            
+            seleccionarDados();  
         }                                                                  
    
         if (boton == this.vistaBatalla.lanzar){  
@@ -442,158 +424,7 @@ public class ControladorBatalla implements ActionListener {
             this.vistaBatalla.trampa.setEnabled(true);
             this.vistaBatalla.mover.setEnabled(true);
             String jugadorActual = combate.getJugadorActual();
-            ArrayList<String> carasEscogidas = new ArrayList<>();
-            if (combate.getJugadorActual().equals(combate.getJugador1())){
-                for (Dado dadosJugador1 : dadosJ1) {
-                    String nombreDado = dadosJugador1.getNombre();
-                    if (nombreDado.equals(this.dadosSeleccionados.get(0))) {
-                        String caraEscogida1 = dadosJugador1.lanzarDado(dadosJugador1.getCaras());
-                        carasEscogidas.add(caraEscogida1);
-                        this.vistaBatalla.caraDado1.setText(caraEscogida1);               
-                    } else if (nombreDado.equals(this.dadosSeleccionados.get(1))) {
-                        String caraEscogida2 = dadosJugador1.lanzarDado(dadosJugador1.getCaras());
-                        carasEscogidas.add(caraEscogida2);
-                        this.vistaBatalla.caraDado2.setText(caraEscogida2);
-                    } else if (nombreDado.equals(this.dadosSeleccionados.get(2))) {
-                        String caraEscogida3 = dadosJugador1.lanzarDado(dadosJugador1.getCaras());
-                        carasEscogidas.add(caraEscogida3);
-                        this.vistaBatalla.caraDado3.setText(caraEscogida3);
-                        //this.vistaBatalla.labelDado3.setIcon(icono);
-                        
-                    } else if (nombreDado.equals(this.dadosSeleccionados.get(3))) {
-                        String caraEscogida4 = dadosJugador1.lanzarDado(dadosJugador1.getCaras());
-                        carasEscogidas.add(caraEscogida4);
-                        this.vistaBatalla.caraDado4.setText(caraEscogida4);
-                    }
-                }
-                for (int j = 0 ; j < dadosSeleccionados.size(); j++){
-                if(carasEscogidas.get(j).equals("atk")){
-                    String ataque = this.vistaBatalla.ataqueJ1.getText();
-                    int cantidadAtaque = Integer.parseInt(ataque) + 1;
-                    String nuevoAtaque = String.valueOf(cantidadAtaque);
-                    this.vistaBatalla.ataqueJ1.setText(nuevoAtaque);
-                }
-                if(carasEscogidas.get(j).equals("mov")){
-                    String movimiento = this.vistaBatalla.movimientoJ1.getText();
-                    int cantidadMovimiento = Integer.parseInt(movimiento) + 1;
-                    String nuevoMovimiento = String.valueOf(cantidadMovimiento);
-                    this.vistaBatalla.movimientoJ1.setText(nuevoMovimiento);
-                }
-                if(carasEscogidas.get(j).equals("magia")){
-                    String magia = this.vistaBatalla.magiaJ1.getText();
-                    int cantidadMagia = Integer.parseInt(magia) + 1;
-                    String nuevaMagia = String.valueOf(cantidadMagia);
-                    this.vistaBatalla.magiaJ1.setText(nuevaMagia);
-                }
-                if(carasEscogidas.get(j).equals("tramp")){
-                    String trampa = this.vistaBatalla.trampaJ1.getText();
-                    int cantidadTrampa = Integer.parseInt(trampa) + 1;
-                    String nuevaTrampa = String.valueOf(cantidadTrampa);
-                    this.vistaBatalla.trampaJ1.setText(nuevaTrampa);
-                }
-                if(carasEscogidas.get(j).equals("inv")){
-                    this.tablero.setVisible(true);
-                    
-                     for(int a = 0; a < 15 ; a++){
-                        if(dadosSeleccionados.get(j).equals(criaturasJ1[a].getNombre())){
-                            this.setCriatura(criaturasJ1[a],j); 
-                            int invocaciones = criaturaInvocada[j].getInvocaciones();
-                            criaturaInvocada[a].setInvocaciones(invocaciones + 1);
-                            if(criaturaInvocada[a].getNivel() == 1 || criaturaInvocada[a].getNivel() == criaturaInvocada[a].getInvocaciones()){
-                                this.invocaciones += 1;
-                                if(this.invocaciones >= 1){
-                                    this.vistaBatalla.invocar.setEnabled(true);
-                                    this.vistaBatalla.mover.setEnabled(false);
-                                    this.vistaBatalla.trampa.setEnabled(false);
-                                    this.vistaBatalla.atacar.setEnabled(false);
-                                    this.vistaBatalla.magia.setEnabled(false);
-                                    this.vistaBatalla.finTurno.setEnabled(false);
-                                
-                        }
-                        
-                        }
-                            a = 15;
-                    }
-                }
-                
-            }    
-            }
-            }
-            else if(combate.getJugadorActual().equals(combate.getJugador2())){
-                for (Dado dadosJugador2 : dadosJ2) {
-                    String nombreDado = dadosJugador2.getNombre();
-                    if (nombreDado.equals(this.dadosSeleccionados.get(0))) {
-                        String caraEscogida1 = dadosJugador2.lanzarDado(dadosJugador2.getCaras());
-                        carasEscogidas.add(caraEscogida1);
-                        this.vistaBatalla.caraDado1.setText(caraEscogida1);
-                    } else if (nombreDado.equals(this.dadosSeleccionados.get(1))) {
-                        String caraEscogida2 = dadosJugador2.lanzarDado(dadosJugador2.getCaras());
-                        carasEscogidas.add(caraEscogida2);
-                        this.vistaBatalla.caraDado2.setText(caraEscogida2);
-                    } else if (nombreDado.equals(this.dadosSeleccionados.get(2))) {
-                        String caraEscogida3 = dadosJugador2.lanzarDado(dadosJugador2.getCaras());
-                        carasEscogidas.add(caraEscogida3);
-                        this.vistaBatalla.caraDado3.setText(caraEscogida3);
-                    } else if (nombreDado.equals(this.dadosSeleccionados.get(3))) {
-                        String caraEscogida4 = dadosJugador2.lanzarDado(dadosJugador2.getCaras());
-                        carasEscogidas.add(caraEscogida4);
-                        this.vistaBatalla.caraDado4.setText(caraEscogida4);
-                    }
-                }
-                for (int j = 0 ; j < 4 ; j++ ){
-                if(carasEscogidas.get(j).equals("atk")){
-                    String ataque = this.vistaBatalla.ataqueJ2.getText();
-                    int cantidadAtaque = Integer.parseInt(ataque) + 1;
-                    String nuevoAtaque = String.valueOf(cantidadAtaque);
-                    this.vistaBatalla.ataqueJ2.setText(nuevoAtaque);
-                }
-                if(carasEscogidas.get(j).equals("mov")){
-                    String movimiento = this.vistaBatalla.movimientoJ2.getText();
-                    int cantidadMovimiento = Integer.parseInt(movimiento) + 1;
-                    String nuevoMovimiento = String.valueOf(cantidadMovimiento);
-                    this.vistaBatalla.movimientoJ2.setText(nuevoMovimiento);
-                }
-                if(carasEscogidas.get(j).equals("magia")){
-                    String magia = this.vistaBatalla.magiaJ2.getText();
-                    int cantidadMagia = Integer.parseInt(magia) + 1;
-                    String nuevaMagia = String.valueOf(cantidadMagia);
-                    this.vistaBatalla.magiaJ2.setText(nuevaMagia);
-                }
-                if(carasEscogidas.get(j).equals("tramp")){
-                    String trampa = this.vistaBatalla.trampaJ2.getText();
-                    int cantidadTrampa = Integer.parseInt(trampa) + 1;
-                    String nuevaTrampa = String.valueOf(cantidadTrampa);
-                    this.vistaBatalla.trampaJ2.setText(nuevaTrampa);
-                }
-                if(carasEscogidas.get(j).equals("inv")){
-                    this.tablero.setVisible(true);
-                    
-                    for(int a = 0; a < 15 ; a++){
-                        if(dadosSeleccionados.get(j).equals(criaturasJ2[a].getNombre())){
-                            this.setCriatura(criaturasJ2[a], j);
-                            int invocaciones = criaturaInvocada[j].getInvocaciones();
-                            criaturaInvocada[a].setInvocaciones(invocaciones + 1);
-                            if(criaturaInvocada[a].getNivel() == 1 || criaturaInvocada[a].getNivel() == criaturaInvocada[a].getInvocaciones()){
-                                this.invocaciones += 1;
-                                if(this.invocaciones >= 1){
-                                this.vistaBatalla.invocar.setEnabled(true);
-                                this.vistaBatalla.mover.setEnabled(false);
-                                this.vistaBatalla.trampa.setEnabled(false);
-                                this.vistaBatalla.atacar.setEnabled(false);
-                                this.vistaBatalla.magia.setEnabled(false);
-                                this.vistaBatalla.finTurno.setEnabled(false);
-                        }
-                    }
-                            a = 15;
-                        }
-                        
-                    }
-                    
-                
-                }
-            }    
-            }            
-           
+            lanzarDados();
         }
         
         if(boton == this.vistaBatalla.mover ){
@@ -682,6 +513,158 @@ public class ControladorBatalla implements ActionListener {
 
     public void setCriatura(Criatura criaturaInvocada, int posicion) {
         this.criaturaInvocada[posicion] = criaturaInvocada;
+    }
+    
+    public void seleccionarDados(){
+        String dado = (String)this.vistaBatalla.dadosPuzle.getSelectedItem();
+        this.dadosSeleccionados.add(dado);
+        System.out.println(dadosSeleccionados);
+        this.vistaBatalla.dadosPuzle.removeItem(dado); 
+        this.vistaBatalla.lanzar.setEnabled(true);
+            
+        if(dadosSeleccionados.size() >= 4){
+            this.vistaBatalla.seleccionarDado.setEnabled(false);
+            this.vistaBatalla.dadosPuzle.setEnabled(false);
+        }
+    }
+    
+    public void lanzarDados(){
+        ArrayList<String> carasEscogidas = new ArrayList<>();
+        if (combate.getJugadorActual().equals(combate.getJugador1())){
+            for (Dado dadosJugador1 : dadosJ1) {
+                String nombreDado = dadosJugador1.getNombre();
+                for(String dados : dadosSeleccionados){
+                if (nombreDado.equals(dados)) {
+                    String caraEscogida = dadosJugador1.lanzarDado(dadosJugador1.getCaras());
+                    carasEscogidas.add(caraEscogida);
+                                   
+            }
+            }
+            }
+            this.vistaBatalla.caraDado1.setText(carasEscogidas.get(0));
+            this.vistaBatalla.caraDado2.setText(carasEscogidas.get(1));
+            this.vistaBatalla.caraDado3.setText(carasEscogidas.get(2));
+            this.vistaBatalla.caraDado4.setText(carasEscogidas.get(3));
+            for (int j = 0 ; j < dadosSeleccionados.size(); j++){
+                if(carasEscogidas.get(j).equals("atk")){
+                    String ataque = this.vistaBatalla.ataqueJ1.getText();
+                    int cantidadAtaque = Integer.parseInt(ataque) + 1;
+                    String nuevoAtaque = String.valueOf(cantidadAtaque);
+                    this.vistaBatalla.ataqueJ1.setText(nuevoAtaque);
+                }
+                if(carasEscogidas.get(j).equals("mov")){
+                    String movimiento = this.vistaBatalla.movimientoJ1.getText();
+                    int cantidadMovimiento = Integer.parseInt(movimiento) + 1;
+                    String nuevoMovimiento = String.valueOf(cantidadMovimiento);
+                    this.vistaBatalla.movimientoJ1.setText(nuevoMovimiento);
+                }
+                if(carasEscogidas.get(j).equals("magia")){
+                    String magia = this.vistaBatalla.magiaJ1.getText();
+                    int cantidadMagia = Integer.parseInt(magia) + 1;
+                    String nuevaMagia = String.valueOf(cantidadMagia);
+                    this.vistaBatalla.magiaJ1.setText(nuevaMagia);
+                }
+                if(carasEscogidas.get(j).equals("tramp")){
+                    String trampa = this.vistaBatalla.trampaJ1.getText();
+                    int cantidadTrampa = Integer.parseInt(trampa) + 1;
+                    String nuevaTrampa = String.valueOf(cantidadTrampa);
+                    this.vistaBatalla.trampaJ1.setText(nuevaTrampa);
+                }
+                if(carasEscogidas.get(j).equals("inv")){
+                    this.tablero.setVisible(true);
+                    
+                     for(int a = 0; a < 15 ; a++){
+                        if(dadosSeleccionados.get(j).equals(criaturasJ1[a].getNombre())){
+                            this.setCriatura(criaturasJ1[a],j); 
+                            int invocaciones = criaturaInvocada[j].getInvocaciones();
+                            criaturaInvocada[a].setInvocaciones(invocaciones + 1);
+                            if(criaturaInvocada[a].getNivel() == 1 || criaturaInvocada[a].getNivel() == criaturaInvocada[a].getInvocaciones()){
+                                this.invocaciones += 1;
+                                if(this.invocaciones >= 1){
+                                    this.vistaBatalla.invocar.setEnabled(true);
+                                    this.vistaBatalla.mover.setEnabled(false);
+                                    this.vistaBatalla.trampa.setEnabled(false);
+                                    this.vistaBatalla.atacar.setEnabled(false);
+                                    this.vistaBatalla.magia.setEnabled(false);
+                                    this.vistaBatalla.finTurno.setEnabled(false);
+                                
+                        }
+                        
+                        }
+                            a = 15;
+                    }
+                }
+                
+            }    
+            }
+            }
+        else if(combate.getJugadorActual().equals(combate.getJugador2())){
+            for (Dado dadosJugador2 : dadosJ2) {
+                String nombreDado = dadosJugador2.getNombre();
+                for(String dados : dadosSeleccionados){
+                if (nombreDado.equals(dados)) {
+                    String caraEscogida = dadosJugador2.lanzarDado(dadosJugador2.getCaras());
+                    carasEscogidas.add(caraEscogida);        
+            }
+            }
+                }
+            this.vistaBatalla.caraDado1.setText(carasEscogidas.get(0));
+            this.vistaBatalla.caraDado2.setText(carasEscogidas.get(1));
+            this.vistaBatalla.caraDado3.setText(carasEscogidas.get(2));
+            this.vistaBatalla.caraDado4.setText(carasEscogidas.get(3));
+                for (int j = 0 ; j < dadosSeleccionados.size() ; j++ ){
+                if(carasEscogidas.get(j).equals("atk")){
+                    String ataque = this.vistaBatalla.ataqueJ2.getText();
+                    int cantidadAtaque = Integer.parseInt(ataque) + 1;
+                    String nuevoAtaque = String.valueOf(cantidadAtaque);
+                    this.vistaBatalla.ataqueJ2.setText(nuevoAtaque);
+                }
+                if(carasEscogidas.get(j).equals("mov")){
+                    String movimiento = this.vistaBatalla.movimientoJ2.getText();
+                    int cantidadMovimiento = Integer.parseInt(movimiento) + 1;
+                    String nuevoMovimiento = String.valueOf(cantidadMovimiento);
+                    this.vistaBatalla.movimientoJ2.setText(nuevoMovimiento);
+                }
+                if(carasEscogidas.get(j).equals("magia")){
+                    String magia = this.vistaBatalla.magiaJ2.getText();
+                    int cantidadMagia = Integer.parseInt(magia) + 1;
+                    String nuevaMagia = String.valueOf(cantidadMagia);
+                    this.vistaBatalla.magiaJ2.setText(nuevaMagia);
+                }
+                if(carasEscogidas.get(j).equals("tramp")){
+                    String trampa = this.vistaBatalla.trampaJ2.getText();
+                    int cantidadTrampa = Integer.parseInt(trampa) + 1;
+                    String nuevaTrampa = String.valueOf(cantidadTrampa);
+                    this.vistaBatalla.trampaJ2.setText(nuevaTrampa);
+                }
+                if(carasEscogidas.get(j).equals("inv")){
+                    this.tablero.setVisible(true);
+                    
+                    for(int a = 0; a < 15 ; a++){
+                        if(dadosSeleccionados.get(j).equals(criaturasJ2[a].getNombre())){
+                            this.setCriatura(criaturasJ2[a], j);
+                            int invocaciones = criaturaInvocada[j].getInvocaciones();
+                            criaturaInvocada[a].setInvocaciones(invocaciones + 1);
+                            if(criaturaInvocada[a].getNivel() == 1 || criaturaInvocada[a].getNivel() == criaturaInvocada[a].getInvocaciones()){
+                                this.invocaciones += 1;
+                                if(this.invocaciones >= 1){
+                                this.vistaBatalla.invocar.setEnabled(true);
+                                this.vistaBatalla.mover.setEnabled(false);
+                                this.vistaBatalla.trampa.setEnabled(false);
+                                this.vistaBatalla.atacar.setEnabled(false);
+                                this.vistaBatalla.magia.setEnabled(false);
+                                this.vistaBatalla.finTurno.setEnabled(false);
+                        }
+                    }
+                            a = 15;
+                        }
+                        
+                    }
+                    
+                
+                }
+            }    
+            }  
     }
 }
 

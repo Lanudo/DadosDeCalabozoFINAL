@@ -23,6 +23,7 @@ public class Jugador {
         this.nombre = nombre;
     }
     
+    
     //Metodo para generar una id de 9 digitos para el usuario que se registra
     public int generarID(){
         Random rnd = new Random();

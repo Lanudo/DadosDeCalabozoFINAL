@@ -18,7 +18,7 @@ public class ControladorInicio implements ActionListener {
     
     public ControladorInicio(VistaInicio vistaInicio){
         this.vistaInicio = vistaInicio;
-        AudioClip sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/ES_HORA_DE_DE_DE_DE_DE_DEL_DUELO.wav"));
+        AudioClip sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/Invoke_magic.wav"));
         sonido.play();
     }
     public void iniciar_VistaInicio(){

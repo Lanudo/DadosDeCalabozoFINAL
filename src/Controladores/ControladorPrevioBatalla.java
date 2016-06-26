@@ -16,7 +16,9 @@ public class ControladorPrevioBatalla implements ActionListener {
     public String[] jugadores;
     ButtonGroup grupoCompetidores = new ButtonGroup();
     ButtonGroup grupoModalidad = new ButtonGroup();
-    
+    final int soloUsuarios = 1;
+    final int soloCpu = 2;
+    final int usuarioCpu = 3;
     public ControladorPrevioBatalla(VistaPrevioBatalla previoBatalla){
         this.previoBatalla = previoBatalla;
     }

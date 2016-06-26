@@ -16,12 +16,11 @@ public class Criatura {
     private int nivel;
     private int ataque;
     private int invocaciones = 0;
-    private int[] posicionAnterior; 
+    private int trampa;
+    private int[] posicionAnterior;
     private int[] posiciónActual;
     private int dueno;
     private int identificador; 
-    boolean atacar;
-    boolean mover;
     private Dado dado;
 
     public Criatura(String nombre, int puntosDeVida, int defensa, int nivel, int ataque, Dado dado) {
@@ -108,6 +107,14 @@ public class Criatura {
     public int getIdentificador() {
         return identificador;
     }
+    
+     public int getTrampa() {
+        return trampa;
+    }
+
+    public void setTrampa(int trampa) {
+        this.trampa = trampa;
+    }
 
     public void setIdentificador(int identificador) {
         this.identificador = identificador;
@@ -120,22 +127,6 @@ public class Criatura {
 
     public void setDado(Dado dado) {
         this.dado = dado;
-    }
-
-    public boolean isAtacar() {
-        return atacar;
-    }
-
-    public void setAtacar(boolean atacar) {
-        this.atacar = atacar;
-    }
-
-    public boolean isMover() {
-        return mover;
-    }
-
-    public void setMover(boolean mover) {
-        this.mover = mover;
     }
     
     public int calculoAtaque(int defensa, int ataque, Criatura enemigo){

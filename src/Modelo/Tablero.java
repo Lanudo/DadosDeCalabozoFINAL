@@ -23,7 +23,6 @@ public class Tablero extends JPanel{
     Accion accion;
     private int[][][] tableroTerreno = new int[15][15][3];
     private Criatura[][] tableroCriatura = new Criatura[15][15];
-    private ControladorBatalla batalla;
     private ArrayList<JButton> botones = new ArrayList<>();
     private Criatura criaturaAtacante;
     private Criatura criaturaDefensora;
@@ -31,6 +30,26 @@ public class Tablero extends JPanel{
     boolean isJefe = false;
     boolean isCriatura = false;
     boolean isTerreno = false;
+    final int despliegue1 = 1;
+    final int despliegue2 = 2;
+    final int despliegue3 = 3;
+    final int despliegue4 = 4;
+    final int despliegue5 = 5;
+    final int despliegue6 = 6;
+    final int despliegue7 = 7;
+    final int despliegue8 = 8;
+    final int despliegue9 = 9;
+    final int despliegue10 = 10;
+    final int despliegue11 = 11;
+    final int jefeTerreno1 = 10;
+    final int jefeTerreno2 = 11;
+    final int jefeTerreno3 = 12;
+    final int jefeTerreno4 = 13;
+    final int moverCriatura = 70;
+    final int elegirNuevaPosicion = 71;
+    final int invocarCriatura = 72;
+    final int elegirCriaturaAtacante = 77;
+    final int elegirCriaturaAtacada = 78;
     
     public Tablero(ControladorBatalla cb, Accion a) {
         
@@ -107,7 +126,7 @@ public class Tablero extends JPanel{
                     botones.add(boton);
                 }
                 
-                if (tableroTerreno[i][j][0] == 10){
+                if (tableroTerreno[i][j][0] == jefeTerreno1){
                     g.setColor(Color.BLUE);
                     int x1 = 12 + i*25;
                     int y1 = 12 + j*25;
@@ -124,7 +143,7 @@ public class Tablero extends JPanel{
                     boton.setBorderPainted(true);
                     botones.add(boton);
                 } 
-                if (tableroTerreno[i][j][0] == 11){
+                if (tableroTerreno[i][j][0] == jefeTerreno2){
                     g.setColor(Color.RED);
                     int x1 = 12 + i*25;
                     int y1 = 12 + j*25;
@@ -141,13 +160,13 @@ public class Tablero extends JPanel{
                     boton.setBorderPainted(true);
                     botones.add(boton);
                 } 
-                if (tableroTerreno[i][j][0] == 12){
+                if (tableroTerreno[i][j][0] == jefeTerreno3){
                     g.setColor(Color.GREEN);
                     int x1 = 12 + i*25;
                     int y1 = 12 + j*25;
                     g.fillRect(x1+1, y1+1, 24, 24);
                 } 
-                if (tableroTerreno[i][j][0] == 13){
+                if (tableroTerreno[i][j][0] == jefeTerreno4){
                     g.setColor(Color.MAGENTA);
                     int x1 = 12 + i*25;
                     int y1 = 12 + j*25;
@@ -166,7 +185,7 @@ public class Tablero extends JPanel{
         int xReal = (int)(x - 12)/25;
         int yReal = (int)(y-12)/25;
         //A partir de ahora, los números del 1 al 11 indican el despliegue de dados elegido por el usuario.
-        if(this.controladorBatalla.getBoton() == 1){
+        if(this.controladorBatalla.getBoton() == despliegue1){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue1(xReal, yReal, 1);
@@ -176,7 +195,7 @@ public class Tablero extends JPanel{
             }
             
         }
-        else if(this.controladorBatalla.getBoton()  == 2){
+        else if(this.controladorBatalla.getBoton()  == despliegue2){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue2(xReal, yReal, 1);
@@ -186,7 +205,7 @@ public class Tablero extends JPanel{
             }
             
         }
-        else if(this.controladorBatalla.getBoton() == 3){
+        else if(this.controladorBatalla.getBoton() == despliegue3){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue3(xReal, yReal, 1);
@@ -196,7 +215,7 @@ public class Tablero extends JPanel{
             }
             
         }
-        else if(this.controladorBatalla.getBoton() == 4){
+        else if(this.controladorBatalla.getBoton() == despliegue4){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue4(xReal, yReal, 1);
@@ -206,7 +225,7 @@ public class Tablero extends JPanel{
             }
             
         }
-        else if(this.controladorBatalla.getBoton() == 5){
+        else if(this.controladorBatalla.getBoton() == despliegue5){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue5(xReal, yReal, 1);
@@ -216,7 +235,7 @@ public class Tablero extends JPanel{
             }
             
         }
-        else if(this.controladorBatalla.getBoton() == 6){
+        else if(this.controladorBatalla.getBoton() == despliegue6){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue6(xReal, yReal, 1);
@@ -226,7 +245,7 @@ public class Tablero extends JPanel{
             }
             
         }
-        else if(this.controladorBatalla.getBoton() == 7){
+        else if(this.controladorBatalla.getBoton() == despliegue7){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue7(xReal, yReal, 1);
@@ -236,7 +255,7 @@ public class Tablero extends JPanel{
             }
             
         }
-        else if(this.controladorBatalla.getBoton() == 8){
+        else if(this.controladorBatalla.getBoton() == despliegue8){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue8(xReal, yReal, 1);
@@ -246,7 +265,7 @@ public class Tablero extends JPanel{
             }
             
         }
-        else if(this.controladorBatalla.getBoton() == 9){
+        else if(this.controladorBatalla.getBoton() == despliegue9){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue9(xReal, yReal, 1);
@@ -256,7 +275,7 @@ public class Tablero extends JPanel{
             }
             
         }
-        else if(this.controladorBatalla.getBoton() == 10){
+        else if(this.controladorBatalla.getBoton() == despliegue10){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue10(xReal, yReal, 1);
@@ -266,7 +285,7 @@ public class Tablero extends JPanel{
             }
             
         }
-        else if(this.controladorBatalla.getBoton() == 11){
+        else if(this.controladorBatalla.getBoton() == despliegue11){
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             if(actual.equals(this.controladorBatalla.getCombate().getJugador1())){
                 despliegue11(xReal, yReal, 1);
@@ -307,7 +326,7 @@ public class Tablero extends JPanel{
             this.controladorBatalla.setBoton(0);
         }
         //El número 77 indica que el usuario solicitó atacar a otro personaje.
-        else if(this.controladorBatalla.getBoton()  == 77 && tableroTerreno[xReal][yReal][1] !=  0 ){
+        else if(this.controladorBatalla.getBoton()  == elegirCriaturaAtacante && tableroTerreno[xReal][yReal][1] !=  0 ){
             Criatura criatura1 = tableroCriatura[xReal][yReal];
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             String jugador1 = this.controladorBatalla.getCombate().getJugador1();
@@ -322,7 +341,7 @@ public class Tablero extends JPanel{
             }
         }
         //El número 78 indica que el usuario debe indicar a qué personaje atacará.
-        else if(this.controladorBatalla.getBoton()  == 78 && tableroTerreno[xReal][yReal][1] !=  0 ){
+        else if(this.controladorBatalla.getBoton()  == elegirCriaturaAtacada && tableroTerreno[xReal][yReal][1] !=  0 ){
             Criatura criatura2 = this.tableroCriatura[xReal][yReal];
             if(criatura2 != null){
                 this.criaturaDefensora = criatura2;
@@ -351,7 +370,7 @@ public class Tablero extends JPanel{
                 }
             }
             else{
-                if(tableroTerreno[xReal][yReal][1] == 10){
+                if(tableroTerreno[xReal][yReal][1] == jefeTerreno1){
                     JefeDeTerreno jefeAtacado = this.controladorBatalla.getJefes()[0];
                     Criatura abajo = this.tableroCriatura[xReal][yReal+1];
                     Criatura izquierda = this.tableroCriatura[xReal-1][yReal];
@@ -370,7 +389,7 @@ public class Tablero extends JPanel{
                     JOptionPane.showMessageDialog(null, "Solo puedes atacar a personajes adyacentes.");
                 }
                 }
-                else if(tableroTerreno[xReal][yReal][1] == 11){
+                else if(tableroTerreno[xReal][yReal][1] == jefeTerreno2){
                     JefeDeTerreno jefeAtacado = this.controladorBatalla.getJefes()[1];
                     Criatura arriba = this.tableroCriatura[xReal][yReal-1];
                     Criatura izquierda = this.tableroCriatura[xReal-1][yReal];
@@ -390,7 +409,7 @@ public class Tablero extends JPanel{
             }
         }
         //El número 70 indica que el usuario solicitó mover una criatura.
-         else if(this.controladorBatalla.getBoton() == 70 && tableroTerreno[xReal][yReal][1] != 0) {
+         else if(this.controladorBatalla.getBoton() == moverCriatura && tableroTerreno[xReal][yReal][1] != 0) {
             Criatura criatura1 = tableroCriatura[xReal][yReal];
             String actual = this.controladorBatalla.getCombate().getJugadorActual();
             String jugador1 = this.controladorBatalla.getCombate().getJugador1();
@@ -401,14 +420,14 @@ public class Tablero extends JPanel{
                 criaturaMover.setPosicionAnterior(anterior);
                 this.criaturaMoviendose = criaturaMover;
                 tableroTerreno[xReal][yReal][1] = 0;
-                this.controladorBatalla.setBoton(71);
+                this.controladorBatalla.setBoton(elegirNuevaPosicion);
             }
             else{
                 JOptionPane.showMessageDialog(null, "No puedes mover criaturas que no sean tuyas.");
             }
          }
         //El número 71 indica que el jugador debe indicar la nueva posición de la criatura a mover.
-         else if(this.controladorBatalla.getBoton() == 71 && tableroTerreno[xReal][yReal][1] == 0 && tableroTerreno[xReal][yReal][0] != 0){
+         else if(this.controladorBatalla.getBoton() == elegirNuevaPosicion && tableroTerreno[xReal][yReal][1] == 0 && tableroTerreno[xReal][yReal][0] != 0){
             String actual = this.controladorBatalla.combate.getJugadorActual();
             String jugador = this.controladorBatalla.combate.getJugador1();
             if(actual.equals(jugador)){
@@ -453,7 +472,7 @@ public class Tablero extends JPanel{
             this.criaturaMoviendose = null;
          }
          //El número 72 indica que el usuario debe invocar una criatura.
-        else if(this.controladorBatalla.getBoton() == 72 && tableroTerreno[xReal][yReal][0] != 0) {
+        else if(this.controladorBatalla.getBoton() == invocarCriatura && tableroTerreno[xReal][yReal][0] != 0) {
             String actual = this.controladorBatalla.combate.getJugadorActual();
             String jugador = this.controladorBatalla.combate.getJugador1();
             if(actual.equals(jugador) && tableroTerreno[xReal][yReal][0] == 1){
@@ -616,6 +635,7 @@ public class Tablero extends JPanel{
         this.repaint();
      }
      
+     
     public boolean getTerreno(){
         return isTerreno;
     }
@@ -659,42 +679,79 @@ public class Tablero extends JPanel{
     public void ponerJefe(int participantes){
         switch (participantes) {
             case 2:
-                tableroTerreno[7][0][0] = 10;
-                tableroTerreno[7][14][0] = 11;
+                tableroTerreno[7][0][0] = jefeTerreno1;
+                this.controladorBatalla.getJefes()[0].setPosicionX(7);
+                this.controladorBatalla.getJefes()[0].setPosicionY(0);
+                tableroTerreno[7][14][0] = jefeTerreno2;
+                this.controladorBatalla.getJefes()[1].setPosicionX(7);
+                this.controladorBatalla.getJefes()[1].setPosicionY(14);
                 tableroTerreno[7][0][1] = 10;
                 tableroTerreno[7][14][1] = 11;
                 break;
             case 3:
-                tableroTerreno[9][1][0] = 10;
-                tableroTerreno[9][14][0] = 11;
-                tableroTerreno[1][8][0] = 12;
+                tableroTerreno[9][1][0] = jefeTerreno1;
+                tableroTerreno[9][14][0] = jefeTerreno2;
+                tableroTerreno[1][8][0] = jefeTerreno3;
                 break;
             case 4:
-                tableroTerreno[8][1][0] = 10;
-                tableroTerreno[8][14][0] = 11;
-                tableroTerreno[1][8][0] = 12;
-                tableroTerreno[15][8][0] = 13;
+                tableroTerreno[8][1][0] = jefeTerreno1;
+                tableroTerreno[8][14][0] = jefeTerreno2;
+                tableroTerreno[1][8][0] = jefeTerreno3;
+                tableroTerreno[15][8][0] = jefeTerreno4;
                 break;
             default:
                 break;
         }
     }
+    
+    public void despliegeNPC(){
+        String actual = this.controladorBatalla.getCombate().getJugadorActual();
+        if(actual == this.controladorBatalla.getCombate().getJugador1()){
+            this.accion.lanzamientoPnj(0);
+            for(int k = 1; k <= this.controladorBatalla.getInvocaciones(); k++){
+                for(int i = 0; i < 6; i++){
+                    this.accion.distanciaMasCorta(tableroTerreno[0], 1);
+                    for(int criatura = 0; criatura < 4; criatura++){
+                        Criatura criaturaInvocada = this.controladorBatalla.getCriatura(criatura);
+                        if(criaturaInvocada != null){
+                            this.accion.invocacionPnj(tableroTerreno, tableroCriatura, criaturaInvocada, 1);
+                            this.controladorBatalla.setCriatura(null, criatura);
+                        }
+                    }
+                }
+            }
+            this.accion.ataquePnj(tableroTerreno[1], tableroCriatura);
+        }
+    }
     private void despliegue1(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal][yReal+1][0];
+        int b2 = tableroTerreno[xReal][yReal-1][0];
         int i2 = tableroTerreno[xReal-1][yReal][0];
+        int b3 = tableroTerreno[xReal-2][yReal][0];
         int i3 = tableroTerreno[xReal-1][yReal+1][0];
+        int b4 = tableroTerreno[xReal-2][yReal+1][0];
+        int b5 = tableroTerreno[xReal-1][yReal+2][0];
         int i4 = tableroTerreno[xReal-1][yReal-1][0];
+        int b6 = tableroTerreno[xReal-2][yReal-1][0];
+        int b7 = tableroTerreno[xReal-1][yReal-2][0];
         int i5 = tableroTerreno[xReal+1][yReal][0];
+        int b8 = tableroTerreno[xReal+1][yReal+1][0];
+        int b9 = tableroTerreno[xReal+1][yReal-1][0];
         int i6 = tableroTerreno[xReal+2][yReal][0];
+        int b10 = tableroTerreno[xReal+2][yReal+1][0];
+        int b11 = tableroTerreno[xReal+2][yReal-1][0];
+        int b12 = tableroTerreno[xReal+3][yReal][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10+b11+b12;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal-1][yReal][0] = i;
         tableroTerreno[xReal-1][yReal+1][0] = i;
         tableroTerreno[xReal-1][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal][0] = i;
         tableroTerreno[xReal+2][yReal][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
@@ -702,20 +759,32 @@ public class Tablero extends JPanel{
     }
     private void despliegue2(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal][yReal+1][0];
         int i2 = tableroTerreno[xReal-1][yReal][0];
+        int b2 = tableroTerreno[xReal-2][yReal][0];
         int i3 = tableroTerreno[xReal-1][yReal+1][0];
+        int b3 = tableroTerreno[xReal-2][yReal+1][0];
+        int b4 = tableroTerreno[xReal-1][yReal+2][0];
         int i4 = tableroTerreno[xReal][yReal-1][0];
+        int b5 = tableroTerreno[xReal][yReal-2][0];
+        int b6 = tableroTerreno[xReal-1][yReal-1][0];
+        int b7 = tableroTerreno[xReal+1][yReal-1][0];
         int i5 = tableroTerreno[xReal+1][yReal][0];
+        int b8 = tableroTerreno[xReal+1][yReal+11][0];
         int i6 = tableroTerreno[xReal+2][yReal][0];
+        int b9 = tableroTerreno[xReal+2][yReal-1][0];
+        int b10 = tableroTerreno[xReal+2][yReal+1][0];
+        int b11 = tableroTerreno[xReal+3][yReal][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10+b11;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal-1][yReal][0] = i;
         tableroTerreno[xReal-1][yReal+1][0] = i;
         tableroTerreno[xReal][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal][0] = i;
         tableroTerreno[xReal+2][yReal][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
@@ -723,20 +792,32 @@ public class Tablero extends JPanel{
     }
     private void despliegue3(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal][yReal+1][0];
+        int b2 = tableroTerreno[xReal][yReal-1][0];
         int i2 = tableroTerreno[xReal-1][yReal][0];
+        int b3 = tableroTerreno[xReal-2][yReal][0];
+        int b4 = tableroTerreno[xReal-1][yReal-1][0];
         int i3 = tableroTerreno[xReal-1][yReal+1][0];
+        int b5 = tableroTerreno[xReal-2][yReal+1][0];
+        int b6 = tableroTerreno[xReal-1][yReal+2][0];
         int i4 = tableroTerreno[xReal+1][yReal-1][0];
+        int b7 = tableroTerreno[xReal+1][yReal-2][0];
+        int b8 = tableroTerreno[xReal+2][yReal-1][0];
         int i5 = tableroTerreno[xReal+1][yReal][0];
+        int b9 = tableroTerreno[xReal+1][yReal+1][0];
         int i6 = tableroTerreno[xReal+2][yReal][0];
+        int b10 = tableroTerreno[xReal+3][yReal][0];
+        int b11 = tableroTerreno[xReal+2][yReal+1][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10+b11;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal-1][yReal][0] = i;
         tableroTerreno[xReal-1][yReal+1][0] = i;
         tableroTerreno[xReal+1][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal][0] = i;
         tableroTerreno[xReal+2][yReal][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
@@ -744,20 +825,33 @@ public class Tablero extends JPanel{
     }
     private void despliegue4(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal][yReal-1][0];
+        int b2 = tableroTerreno[xReal][yReal+1][0];
         int i2 = tableroTerreno[xReal-1][yReal][0];
+        int b3 = tableroTerreno[xReal-1][yReal+1][0];
+        int b4 = tableroTerreno[xReal-2][yReal][0];
         int i3 = tableroTerreno[xReal-1][yReal+1][0];
+        int b5 = tableroTerreno[xReal-2][yReal+1][0];
+        int b6 = tableroTerreno[xReal-1][yReal+2][0];
         int i4 = tableroTerreno[xReal+2][yReal-1][0];
+        int b7 = tableroTerreno[xReal+2][yReal-2][0];
+        int b8 = tableroTerreno[xReal+1][yReal-1][0];
+        int b9 = tableroTerreno[xReal+3][yReal-1][0];
         int i5 = tableroTerreno[xReal+1][yReal][0];
+        int b10 = tableroTerreno[xReal+1][yReal+11][0];
         int i6 = tableroTerreno[xReal+2][yReal][0];
+        int b11 = tableroTerreno[xReal+3][yReal][0];
+        int b12 = tableroTerreno[xReal+2][yReal+1][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10+b11+b12;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal-1][yReal][0] = i;
         tableroTerreno[xReal-1][yReal+1][0] = i;
         tableroTerreno[xReal+2][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal][0] = i;
         tableroTerreno[xReal+2][yReal][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
@@ -765,20 +859,31 @@ public class Tablero extends JPanel{
     }
     private void despliegue5(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal][yReal+1][0];
+        int b2 = tableroTerreno[xReal-1][yReal][0];
+        int b3 = tableroTerreno[xReal+1][yReal][0];
         int i2 = tableroTerreno[xReal-1][yReal-1][0];
+        int b4 = tableroTerreno[xReal-2][yReal-1][0];
+        int b5 = tableroTerreno[xReal-1][yReal-2][0];
         int i3 = tableroTerreno[xReal][yReal-1][0];
         int i4 = tableroTerreno[xReal+1][yReal-1][0];
+        int b6 = tableroTerreno[xReal+1][yReal-2][0];
         int i5 = tableroTerreno[xReal+2][yReal-1][0];
+        int b7 = tableroTerreno[xReal+1][yReal][0];
+        int b8 = tableroTerreno[xReal+1][yReal-2][0];
+        int b9 = tableroTerreno[xReal+3][yReal-1][0];
         int i6 = tableroTerreno[xReal][yReal-2][0];
+        int b10 = tableroTerreno[xReal][yReal-3][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal-1][yReal-1][0] = i;
         tableroTerreno[xReal][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal-1][0] = i;
         tableroTerreno[xReal+2][yReal-1][0] = i;
         tableroTerreno[xReal][yReal-2][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
@@ -786,20 +891,31 @@ public class Tablero extends JPanel{
     }
     private void despliegue6(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal+1][yReal][0];
+        int b2 = tableroTerreno[xReal+2][yReal][0];
+        int b3 = tableroTerreno[xReal][yReal+1][0];
         int i2 = tableroTerreno[xReal-1][yReal-1][0];
+        int b4 = tableroTerreno[xReal-2][yReal-1][0];
+        int b5 = tableroTerreno[xReal-1][yReal-2][0];
         int i3 = tableroTerreno[xReal][yReal-1][0];
+        int b6 = tableroTerreno[xReal][yReal-2][0];
         int i4 = tableroTerreno[xReal+1][yReal-1][0];
         int i5 = tableroTerreno[xReal+2][yReal-1][0];
+        int b7 = tableroTerreno[xReal+3][yReal-1][0];
+        int b8 = tableroTerreno[xReal+2][yReal][0];
+        int b9 = tableroTerreno[xReal+2][yReal-2][0];
         int i6 = tableroTerreno[xReal+1][yReal-2][0];
+        int b10 = tableroTerreno[xReal+1][yReal-3][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal-1][yReal-1][0] = i;
         tableroTerreno[xReal][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal-1][0] = i;
         tableroTerreno[xReal+2][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal-2][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
@@ -807,20 +923,32 @@ public class Tablero extends JPanel{
     }
     private void despliegue7(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal][yReal+1][0];
+        int b2 = tableroTerreno[xReal+1][yReal][0];
         int i2 = tableroTerreno[xReal-1][yReal][0];
+        int b3 = tableroTerreno[xReal-1][yReal+1][0];
+        int b4 = tableroTerreno[xReal-1][yReal-1][0];
+        int b5 = tableroTerreno[xReal-2][yReal][0];
         int i3 = tableroTerreno[xReal][yReal-1][0];
         int i4 = tableroTerreno[xReal+1][yReal-1][0];
+        int b6 = tableroTerreno[xReal+1][yReal-2][0];
         int i5 = tableroTerreno[xReal+2][yReal-1][0];
+        int b7 = tableroTerreno[xReal+2][yReal][0];
+        int b8 = tableroTerreno[xReal+2][yReal-2][0];
+        int b9 = tableroTerreno[xReal+3][yReal-1][0];
         int i6 = tableroTerreno[xReal][yReal-2][0];
+        int b10 = tableroTerreno[xReal-1][yReal-2][0];
+        int b11 = tableroTerreno[xReal][yReal-3][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10+b11;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal-1][yReal][0] = i;
         tableroTerreno[xReal][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal-1][0] = i;
         tableroTerreno[xReal+2][yReal-1][0] = i;
         tableroTerreno[xReal][yReal-2][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
@@ -829,20 +957,32 @@ public class Tablero extends JPanel{
     
     private void despliegue8(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal][yReal+1][0];
+        int b2 = tableroTerreno[xReal+1][yReal][0];
         int i2 = tableroTerreno[xReal-1][yReal][0];
+        int b3 = tableroTerreno[xReal-1][yReal+1][0];
+        int b4 = tableroTerreno[xReal-2][yReal][0];
+        int b5 = tableroTerreno[xReal-1][yReal-1][0];
         int i3 = tableroTerreno[xReal][yReal-1][0];
+        int b6 = tableroTerreno[xReal][yReal-2][0];
         int i4 = tableroTerreno[xReal+1][yReal-1][0];
+        int b7 = tableroTerreno[xReal+1][yReal-2][0];
         int i5 = tableroTerreno[xReal+2][yReal-1][0];
+        int b8 = tableroTerreno[xReal+2][yReal][0];
+        int b9 = tableroTerreno[xReal+2][yReal-2][0];
+        int b10 = tableroTerreno[xReal+3][yReal-1][0];
         int i6 = tableroTerreno[xReal+1][yReal-2][0];
+        int b11 = tableroTerreno[xReal+1][yReal-3][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10+b11;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal-1][yReal][0] = i;
         tableroTerreno[xReal][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal-1][0] = i;
         tableroTerreno[xReal+2][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal-2][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
@@ -850,20 +990,32 @@ public class Tablero extends JPanel{
     }
     private void despliegue9(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal+1][yReal][0];
+        int b2 = tableroTerreno[xReal][yReal+1][0];
         int i2 = tableroTerreno[xReal-1][yReal][0];
+        int b3 = tableroTerreno[xReal-2][yReal][0];
+        int b4 = tableroTerreno[xReal-1][yReal+1][0];
+        int b5 = tableroTerreno[xReal-1][yReal-1][0];
         int i3 = tableroTerreno[xReal][yReal-1][0];
+        int b6 = tableroTerreno[xReal][yReal-2][0];
         int i4 = tableroTerreno[xReal+1][yReal-1][0];
+        int b7 = tableroTerreno[xReal+1][yReal-2][0];
         int i5 = tableroTerreno[xReal+2][yReal-1][0];
+        int b8 = tableroTerreno[xReal+2][yReal][0];
+        int b9 = tableroTerreno[xReal+3][yReal-1][0];
         int i6 = tableroTerreno[xReal+2][yReal-2][0];
+        int b10 = tableroTerreno[xReal+3][yReal-2][0];
+        int b11 = tableroTerreno[xReal+2][yReal-3][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10+b11;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal-1][yReal][0] = i;
         tableroTerreno[xReal][yReal-1][0] = i;
         tableroTerreno[xReal+1][yReal-1][0] = i;
         tableroTerreno[xReal+2][yReal-1][0] = i;
         tableroTerreno[xReal+2][yReal-2][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
@@ -871,20 +1023,33 @@ public class Tablero extends JPanel{
     }
     private void despliegue10(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal-1][yReal][0];
+        int b2 = tableroTerreno[xReal][yReal+1][0];
         int i2 = tableroTerreno[xReal+1][yReal][0];
+        int b3 = tableroTerreno[xReal+1][yReal+1][0];
+        int b4 = tableroTerreno[xReal+1][yReal-1][0];
         int i3 = tableroTerreno[xReal+2][yReal][0];
+        int b5 = tableroTerreno[xReal+2][yReal+1][0];
+        int b6 = tableroTerreno[xReal+2][yReal-1][0];
+        int b7 = tableroTerreno[xReal+3][yReal][0];
         int i4 = tableroTerreno[xReal][yReal-1][0];
+        int b8 = tableroTerreno[xReal][yReal-2][0];
         int i5 = tableroTerreno[xReal-1][yReal-1][0];
+        int b9 = tableroTerreno[xReal-1][yReal-2][0];
         int i6 = tableroTerreno[xReal-2][yReal-1][0];
+        int b10 = tableroTerreno[xReal-2][yReal][0];
+        int b11 = tableroTerreno[xReal-2][yReal-2][0];
+        int b12 = tableroTerreno[xReal-3][yReal-1][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10+b11+b12;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal+1][yReal][0] = i;
         tableroTerreno[xReal+2][yReal][0] = i;
         tableroTerreno[xReal][yReal-1][0] = i;
         tableroTerreno[xReal-1][yReal-1][0] = i;
         tableroTerreno[xReal-2][yReal-1][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
@@ -892,20 +1057,31 @@ public class Tablero extends JPanel{
     }
     private void despliegue11(int xReal, int yReal, int i){
         int i1 = tableroTerreno[xReal][yReal][0];
+        int b1 = tableroTerreno[xReal][yReal+1][0];
+        int b2 = tableroTerreno[xReal-1][yReal][0];
         int i2 = tableroTerreno[xReal+1][yReal][0];
+        int b3 = tableroTerreno[xReal+1][yReal+1][0];
+        int b4 = tableroTerreno[xReal+1][yReal-1][0];
+        int b5 = tableroTerreno[xReal+2][yReal][0];
         int i3 = tableroTerreno[xReal][yReal-1][0];
+        int b6 = tableroTerreno[xReal][yReal-2][0];
         int i4 = tableroTerreno[xReal-1][yReal-1][0];
+        int b7 = tableroTerreno[xReal-2][yReal-1][0];
         int i5 = tableroTerreno[xReal-1][yReal-2][0];
+        int b8 = tableroTerreno[xReal-1][yReal-3][0];
         int i6 = tableroTerreno[xReal-2][yReal-2][0];
+        int b9 = tableroTerreno[xReal-3][yReal-2][0];
+        int b10 = tableroTerreno[xReal-2][yReal-3][0];
         int total = i1 + i2 + i3 + i4 + i5 + i6;
-        if(total == 0){
+        int total1 = b1+b2+b3+b4+b5+b6+b7+b8+b9+b10;
+        if(total == 0 && total1 > 0){
         tableroTerreno[xReal][yReal][0] = i;
         tableroTerreno[xReal+1][yReal][0] = i;
         tableroTerreno[xReal][yReal-1][0] = i;
         tableroTerreno[xReal-1][yReal-1][0] = i;
         tableroTerreno[xReal-1][yReal-2][0] = i;
         tableroTerreno[xReal-2][yReal-2][0] = i;
-        this.controladorBatalla.setBoton(72);
+        this.controladorBatalla.setBoton(invocarCriatura);
         }
         else{
             JOptionPane.showMessageDialog(null, "No fue correcto el despliegue. Terreno ya ocupado.");
