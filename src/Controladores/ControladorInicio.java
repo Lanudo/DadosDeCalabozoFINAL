@@ -41,6 +41,7 @@ public class ControladorInicio implements ActionListener {
                 if(usuariosRegistrados.contains(nombreUsuario)){
                     String contrasenia = usuario.contraseniaUsuarios(nombreUsuario);
                     if(contrasenia.equals(contrasena)){
+                        usuario.sesiones(nombreUsuario,true,true);
                         VistaMenuPrincipal vistaMenu = new VistaMenuPrincipal();
                         ControladorMenuPrincipal ctrlMenu = new ControladorMenuPrincipal(vistaMenu);
                         ctrlMenu.iniciar_MenuPrincipal();

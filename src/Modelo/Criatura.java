@@ -23,13 +23,12 @@ public class Criatura {
     private int identificador; 
     private Dado dado;
 
-    public Criatura(String nombre, int puntosDeVida, int defensa, int nivel, int ataque, Dado dado) {
+    public Criatura(String nombre, int puntosDeVida, int defensa, int nivel, int ataque) {
         this.nombre = nombre;
         this.puntosDeVida = puntosDeVida;
         this.defensa = defensa;
         this.nivel = nivel;
         this.ataque = ataque;
-        this.dado = dado;
     }
     
     public String getNombre() {
@@ -241,6 +240,74 @@ public class Criatura {
         else{
             return null;
         }   
+    }
+    
+    /**
+     * Metodo que obtiene el nombre de la criatura (cambiar nombre del metodo por idCriatura)
+     * @param idDado id del dado correspondiente
+     * @return retorna nombre de la criatura
+     * @throws SQLException 
+     */
+    public String criaturaAsociada(String idDado) throws SQLException{
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta = "SELECT ID_CRIATURA FROM DADO WHERE ID_DADO= "+idDado+""; 
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                if(resultados.next()){
+                    String id = resultados.getString(1);           
+                    resultados.close();
+                    stmt.close();
+                    conexion.desconectar();
+                    return id;
+                }
+                else{
+                    conexion.desconectar();
+                    return null;
+                }
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            } 
+        }
+        else{
+            return null;
+        }   
+    }
+    
+    public String nombreCriatura(String idCriatura) throws SQLException{
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta = "SELECT NOMBRE_CRIATURA FROM CRIATURA WHERE ID_CRIATURA = '"+idCriatura+"'";
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                if(resultados.next()){
+                    String nombreCriatura = resultados.getString(1);           
+                    resultados.close();
+                    stmt.close();
+                    conexion.desconectar();
+                    return nombreCriatura;
+                }
+                else{
+                    conexion.desconectar();
+                    return null;
+                }
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            } 
+        }
+        else{
+            return null;
+        }    
     }
     
     

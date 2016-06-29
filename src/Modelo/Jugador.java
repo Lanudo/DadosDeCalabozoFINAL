@@ -147,6 +147,96 @@ public class Jugador {
         }   
     }
     
+    /**
+     * Metodo que actualiza las sesiones de los usuarios, ya sea la sesion principal o para la batalla
+     * @param jugador nombre del jugador que inicia sesion
+     * @param principal indica si esta ingresando a la aplicacion
+     * @param sesion indica si la sesion se indica solo para la batalla
+     * @throws SQLException 
+     */
+    public void sesiones(String jugador, boolean principal, boolean sesion) throws SQLException{
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta="UPDATE JUGADOR SET SESION_ACTIVA= "+sesion+", SESION_PRINCIPAL="+principal+" WHERE NOMBRE_JUGADOR= '"+jugador+"'";  
+            Statement stmt = conexion.crearConsulta();
+            if (stmt !=null){
+                stmt.executeUpdate(consulta);
+                stmt.close();
+                conexion.desconectar();
+            }
+            else{
+                stmt.close();
+                conexion.desconectar();
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @return retorna el nombre del usuario que tiene la sesion principal activa
+     * @throws SQLException 
+     */
+    public String sesionUsuario() throws SQLException{
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta = "SELECT NOMBRE_JUGADOR FROM JUGADOR WHERE SESION_PRINCIPAL = true";
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                resultados.next();
+                String contrasenia = resultados.getString(1);
+                resultados.close();
+                stmt.close();
+                conexion.desconectar();
+                return contrasenia;
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            }   
+        }
+        else{
+            return null;
+        }
+    }
+    
+    /**
+     * 
+     * @return retorna los nombres de los usuarios que iniciaron sesion para la batalla.
+     * @throws SQLException 
+     */
+    public List<String> competidoresBatalla() throws SQLException{
+        List<String> listaUsuarios = new ArrayList<String>();
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado == true){
+            final String consulta = "SELECT NOMBRE_JUGADOR FROM JUGADOR WHERE SESION_ACTIVA = true";
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                while (resultados.next()){
+                    String jugador = resultados.getString(1);
+                    listaUsuarios.add(jugador);
+                }
+                resultados.close();
+                stmt.close();
+                conexion.desconectar();
+                return listaUsuarios;
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            }   
+        }
+        else{
+            return null;
+        }  
+    }
+    
 
     public boolean getTurnoActual() {
         return turnoActual;

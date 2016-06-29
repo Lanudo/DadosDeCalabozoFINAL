@@ -1,6 +1,10 @@
 package Modelo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -43,4 +47,38 @@ public class PuzleDeDados {
         this.puzleDeDados = puzleDeDados;
     }
     
+    /**
+     * Metodo que busca las criaturas del usuario en su puzle de dados
+     * @param idJugador para obtener las criaturas del usuario
+     * @return retorna una lista con los id de los dados del puzle 
+     * @throws SQLException 
+     */
+    public List<String> criaturasPuzle(int idJugador) throws SQLException{
+        List<String> listaUsuarios = new ArrayList<String>();
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta = "SELECT ID_DADO FROM DADOJUGADOR WHERE ID_JUGADOR = "+idJugador+"";
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                while(resultados.next()){
+                    String nombreUsuario = resultados.getString(1);
+                    listaUsuarios.add(nombreUsuario);
+                }
+                resultados.close();
+                stmt.close();
+                conexion.desconectar();
+                return listaUsuarios;
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            } 
+        }
+        else{
+            return null;
+        }   
+    }
 }

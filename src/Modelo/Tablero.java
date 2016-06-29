@@ -689,15 +689,29 @@ public class Tablero extends JPanel{
                 tableroTerreno[7][14][1] = 11;
                 break;
             case 3:
-                tableroTerreno[9][1][0] = jefeTerreno1;
-                tableroTerreno[9][14][0] = jefeTerreno2;
-                tableroTerreno[1][8][0] = jefeTerreno3;
+                tableroTerreno[7][0][0] = jefeTerreno1;
+                this.controladorBatalla.getJefes()[0].setPosicionX(7);
+                this.controladorBatalla.getJefes()[0].setPosicionY(0);
+                tableroTerreno[7][14][0] = jefeTerreno2;
+                this.controladorBatalla.getJefes()[1].setPosicionX(7);
+                this.controladorBatalla.getJefes()[1].setPosicionY(14);
+                tableroTerreno[0][7][0] = jefeTerreno3;
+                this.controladorBatalla.getJefes()[2].setPosicionX(0);
+                this.controladorBatalla.getJefes()[2].setPosicionY(7);
                 break;
             case 4:
-                tableroTerreno[8][1][0] = jefeTerreno1;
-                tableroTerreno[8][14][0] = jefeTerreno2;
+                tableroTerreno[7][0][0] = jefeTerreno1;
+                this.controladorBatalla.getJefes()[0].setPosicionX(7);
+                this.controladorBatalla.getJefes()[0].setPosicionY(0);
+                tableroTerreno[7][14][0] = jefeTerreno2;
+                this.controladorBatalla.getJefes()[1].setPosicionX(7);
+                this.controladorBatalla.getJefes()[1].setPosicionY(14);
                 tableroTerreno[1][8][0] = jefeTerreno3;
+                this.controladorBatalla.getJefes()[2].setPosicionX(0);
+                this.controladorBatalla.getJefes()[2].setPosicionY(7);
                 tableroTerreno[15][8][0] = jefeTerreno4;
+                this.controladorBatalla.getJefes()[3].setPosicionX(14);
+                this.controladorBatalla.getJefes()[3].setPosicionY(7);
                 break;
             default:
                 break;

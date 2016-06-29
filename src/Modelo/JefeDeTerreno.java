@@ -188,6 +188,71 @@ public class JefeDeTerreno {
             return null;
         }   
     }
+    
+    /**
+     * 
+     * @param idJugador
+     * @return retorna la id del jefe de terreno asociado al jugador
+     * @throws SQLException 
+     */
+    public String jefeJugador(String idJugador) throws SQLException{
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta = "SELECT ID_JEFETERRENO FROM JEFE_JUGADOR WHERE ID_JUGADOR = " +idJugador+"";
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                resultados.next();
+                String contrasenia = resultados.getString(1);
+                resultados.close();
+                stmt.close();
+                conexion.desconectar();
+                return contrasenia;
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            }   
+        }
+        else{
+            return null;
+        }
+    }
+    
+    /**
+     * 
+     * @param idJefe
+     * @return retorna el nombre del jefe de terreno 
+     * @throws SQLException 
+     */
+    public String nombreJefe(String idJefe) throws SQLException{
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta = "SELECT NOMBRE_JEFETERRENO FROM JEFETERRENO WHERE ID_JEFETERRENO= "+idJefe+""; 
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                resultados.next();
+                String nombreJefe = resultados.getString(1);           
+                resultados.close();
+                stmt.close();
+                conexion.desconectar();
+                return nombreJefe;
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            } 
+        }
+        else{
+            return null;
+        }   
+    }
+    
     //Metodo que genera una id para DadoJugador
     public int generarIdJefe(){
         Random rnd = new Random();

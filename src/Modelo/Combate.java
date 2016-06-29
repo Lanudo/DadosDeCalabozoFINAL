@@ -114,40 +114,52 @@ public class Combate {
         this.jugadorSiguiente3 = jugadorSiguiente3;
     }
     
-    /*public void configurarCombate(int participantes, String jugador1, String jugador2, String jugador3, String jugador4){
-        if (participantes == 2){
-            this.jugador1 = new Jugador();
-            this.jugador2 = new Jugador();
-            seleccionarTurno(participantes);
-            tablero.generarTablero();
-            tablero.ponerJefe(participantes);
-            
+    public void cambiarTurno(int competidores){
+        if(competidores == 2){
+            if (this.jugadorActual == this.jugador1){
+                this.jugadorActual = jugador2;
+                this.jugadorSiguente = jugador1;
+            } else{
+                this.jugadorActual = jugador1;
+                this.jugadorSiguente = jugador2;
+            }
         }
-        if (participantes == 3){
-            this.jugador1 = new Jugador();
-            this.jugador2 = new Jugador();
-            this.jugador3 = new Jugador();
-            seleccionarTurno(participantes);
-            tablero.ponerJefe(participantes);
+        else if(competidores == 3){
+            if (this.jugadorActual == this.jugador1){
+                this.jugadorActual = jugador2;
+                this.jugadorSiguente = jugador3;
+                this.jugadorSiguiente2 = jugador1;
+                
+            } else if(this.jugadorActual == this.jugador2){
+                this.jugadorActual = jugador3;
+                this.jugadorSiguente = jugador1;
+                this.jugadorSiguiente2 = jugador2;
+            } else{
+                this.jugadorActual = jugador1;
+                this.jugadorSiguente = jugador2;
+                this.jugadorSiguiente2 = jugador3;
+            }
         }
-        if (participantes == 4){
-            this.jugador1 = new Jugador();
-            this.jugador2 = new Jugador();
-            this.jugador3 = new Jugador();
-            this.jugador4 = new Jugador();
-            seleccionarTurno(participantes);
-            tablero.ponerJefe(participantes);
+        else if(competidores == 4){
+            if (this.jugadorActual == this.jugador1){
+                this.jugadorActual = jugador2;
+                this.jugadorSiguente = jugador3;
+                this.jugadorSiguiente2 = jugador4;
+                this.jugadorSiguiente3 = jugador1;
+                
+            } else if(this.jugadorActual == this.jugador2){
+                this.jugadorActual = jugador3;
+                this.jugadorSiguente = jugador4;
+                this.jugadorSiguiente2 = jugador1;
+                this.jugadorSiguiente3 = jugador2;                
+            } else{
+                this.jugadorActual = jugador1;
+                this.jugadorSiguente = jugador2;
+                this.jugadorSiguiente2 = jugador3;
+                this.jugadorSiguiente3 = jugador4;
+            }
         }
-    }*/
-    
-    public void cambiarTurno(){
-        if (this.jugadorActual == this.jugador1){
-            this.jugadorActual = jugador2;
-            this.jugadorSiguente = jugador1;
-        } else{
-            this.jugadorActual = jugador1;
-            this.jugadorSiguente = jugador2;
-        }
+        
     }
     
     public void seleccionarTurno(int competidores, String jugador1, String jugador2, String jugador3, String jugador4){

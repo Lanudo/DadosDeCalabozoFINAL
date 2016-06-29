@@ -65,7 +65,7 @@ public class ControladorPuzleDeDados implements ActionListener {
         Object boton = e.getSource();
         String usuario = this.vistaPuzleDeDados.txtUsuario.getText();
         Jugador jugador = new Jugador(null);
-        Criatura criatura = new Criatura(null, 0, 0, 0, 0, null);
+        Criatura criatura = new Criatura(null, 0, 0, 0, 0);
         JefeDeTerreno jefe = new JefeDeTerreno(null, null);
         Dado dado = new Dado(null,null,null);
         if (boton == this.vistaPuzleDeDados.buscarDados){    
